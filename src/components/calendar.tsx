@@ -91,7 +91,7 @@ export type CalendarProps = {
   meta?: (item: MomentDateType) => ReactNode;
 };
 
-export default function Calendar2({
+export default function Calendar({
   config,
   holidays,
   disabledDays,
