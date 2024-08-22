@@ -1,3 +1,5 @@
-import Calendar from "./components/calendar";
+import "./tailwind.css";
 
-export { Calendar };
+import KimuraCalendar from "./components/calendar";
+
+export { KimuraCalendar };
