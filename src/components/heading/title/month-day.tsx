@@ -1,4 +1,3 @@
-import { Button } from "@/app/components/ui";
 import React, { useContext } from "react";
 import { CalendarContext, CalendarViewType } from "../../calendar";
 import { CalendarHolderContext } from "../../calendar-holder";
@@ -32,13 +31,12 @@ export default function MonthDay() {
   };
 
   return (
-    <Button
-      variant='text'
+    <button
       className='!px-0 hover:!bg-transparent min-w-[initial] active:!bg-transparent !text-black/60'
       type='button'
       onClick={onClickYearTitle}
     >
       {finalDate?.format(dateFormat)}
-    </Button>
+    </button>
   );
 }

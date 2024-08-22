@@ -1,9 +1,7 @@
-import { IconButton } from "@/app/components/ui";
 import React, { useContext } from "react";
 import { CalendarContext, CalendarViewType } from "../calendar";
 import moment from "moment";
 import { CalendarHolderContext } from "../calendar-holder";
-import { ChevronLeft } from "lucide-react";
 
 export default function NextMonth() {
   //Get calendar context
@@ -24,8 +22,8 @@ export default function NextMonth() {
   if (!hasNextMonth) return null;
 
   return (
-    <IconButton onClick={handleNextMonth} className='next-month text-primary'>
-      <ChevronLeft />
-    </IconButton>
+    <button onClick={handleNextMonth} className='next-month text-primary'>
+      {`<-`}
+    </button>
   );
 }
