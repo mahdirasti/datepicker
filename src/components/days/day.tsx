@@ -63,7 +63,7 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
   const dayClass = config?.options?.dayClass ?? "";
 
   let dayClss =
-    "relative day text-sm hover:bg-lightSecondary w-[32px] h-[32px] text-black/[.54]";
+    "relative day text-sm w-[32px] h-[32px] flex flex-col items-center justify-center";
 
   const dateInFormatted = date.clone().startOf("day").format(DATE_FORMAT);
   const hoverSelectedDateInFormatted = hoverSelectedDate
@@ -86,7 +86,9 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
   }
 
   if (selectedDates.includes(dateInFormatted) && !isJustBrowsing) {
-    dayClss += ` selected-day !bg-primary hover:bg-secondary !text-white !border-0 z-[1] relative`;
+    dayClss += ` selected-day !border-0 z-[1] relative rounded-full ${
+      config?.options?.selectedDayLabelClass ?? "bg-black/10"
+    }`;
   }
 
   const selectDateHandler = (e: any) => {
@@ -101,10 +103,14 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
   };
 
   let dayFormat = "D";
+  let locale = "en";
 
-  if (config.system === "jalali") dayFormat = "jD";
+  if (config.system === "jalali") {
+    locale = "fa";
+    dayFormat = "jD";
+  }
 
-  let dayLabel = date.format(dayFormat);
+  let dayLabel = date.locale(locale).format(dayFormat);
 
   let isCurrentDay = false;
 
@@ -140,9 +146,12 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
     }
   }, [hoverSelectedDate, selectedDate]);
 
-  if (isCurrentDay) dayClss += ` !bg-primary/20 day-in-range`;
+  if (isCurrentDay && isShowParentDayBg) dayClss += ` rounded-none`;
 
-  if (isCurrentDay && isShowParentDayBg) dayClss += ` !rounded-none`;
+  if (isCurrentDay)
+    dayClss += ` bg-primary day-in-range ${
+      config?.options?.dayInRangeClass ?? ""
+    }`;
 
   let isShowParentBg = false;
   let parentClss = "col-span-1";
@@ -170,7 +179,9 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
   }
 
   if (isShowParentBg) {
-    parentClss += ` bg-primary/20 day-in-range`;
+    parentClss += ` bg-primary/20 day-in-range ${
+      config?.options?.dayInRangeClass ?? ""
+    }`;
     if (selectedDates[0] === dateInFormatted && isShowParentDayBg) {
       switch (config.system) {
         case "gregorian":
@@ -228,14 +239,18 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
 
   //Weekend
   if (date.weekday() === 5 || date.weekday() === 6)
-    dayClss += ` weekend text-error`;
+    dayClss += ` weekend text-red-500 ${
+      config?.options?.weekendLabelClass ?? ""
+    }`;
 
   //Holidays
   if (
     holidaysInFormatted.length > 0 &&
     holidaysInFormatted.includes(dateInFormatted)
   )
-    dayClss += ` holiday !text-red-500 !border-red-500`;
+    dayClss += ` holiday !text-red-500 !border-red-500 ${
+      config?.options?.holidayLabelClass ?? ""
+    }`;
 
   //Holidays
   if (
@@ -255,8 +270,7 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
           width: "100% !important",
         }}
       >
-        {dayLabel}
-        {!!meta && meta(date)}
+        {!!meta ? meta(date) : dayLabel}
       </button>
     </div>
   );

@@ -1,12 +1,12 @@
 {
     "name": "kimura-datepicker",
-    "version": "1.0.10",
+    "version": "1.0.19",
     "description": "A custom datepicker component for React",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "build": "tsc && npm run copy-css",
-        "copy-css": "npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --watch"
+        "build": "tsc && npm run copy-tailwind",
+        "copy-tailwind": "npx tailwindcss -i ./src/tailwind.css -o ./dist/tailwind.css --watch"
     },
     "author": "Mahdi Rasti",
     "license": "MIT",

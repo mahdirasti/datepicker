@@ -47,7 +47,7 @@ export default function CalendarHolder({
     }));
   }, [index, hasNextMonth, hasPrevMonth]);
 
-  let content = <Days />;
+  let content = <Days meta={meta} />;
 
   if (viewType === CalendarViewType.Month) content = <Months />;
   if (viewType === CalendarViewType.Years) content = <Years />;

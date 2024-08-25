@@ -34,6 +34,8 @@ export default function Month({ date, meta }: Props) {
 
   if (system === "jalali") DATE_FORMAT = `jMMMM`;
 
+  const locale = config.system === "jalali" ? "fa" : "en_US";
+
   //get today
   const today = system === "jalali" ? momentJalali() : moment();
   const todayInFormatted = today.clone().startOf("day").format(DATE_FORMAT);
@@ -56,7 +58,7 @@ export default function Month({ date, meta }: Props) {
   const maxDate = config?.options?.maxDate ?? undefined;
 
   let monthClss =
-    "relative day text-sm hover:bg-lightSecondary !w-full !py-2 !h-auto !min-w-[initial] rounded-2xl";
+    "relative day text-sm !w-full !py-2 !h-auto !min-w-[initial] rounded-2xl";
 
   const dateInFormatted = date.clone().startOf("month").format(DATE_FORMAT);
 
@@ -89,7 +91,7 @@ export default function Month({ date, meta }: Props) {
   }
 
   if (isCurrentMonth && !isJustBrowsing) {
-    monthClss += ` selected-month !bg-primary !rounded-md hover:bg-secondary !text-white z-[1] relative`;
+    monthClss += ` selected-month !rounded-md hover:bg-secondary z-[1] relative`;
   }
 
   const selectDateHandler = (e: any) => {
@@ -107,7 +109,7 @@ export default function Month({ date, meta }: Props) {
     }
   };
 
-  let monthLabel = date?.locale("fa")?.format(DATE_FORMAT);
+  let monthLabel = date?.locale(locale)?.format(DATE_FORMAT);
 
   //Check if between two range dates has disabled date
   useEffect(() => {

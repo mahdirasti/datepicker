@@ -23,17 +23,23 @@ export default function DaysLabels() {
   const getNextWeekLabels = useMemo(() => {
     let days = [];
     for (let i = 0; i < 7; i++) {
-      days.push(
-        firstDayOfMonth.clone().startOf("day").locale("fa").add(i, "day")
-      );
+      if (config.system === "jalali") {
+        days.push(
+          firstDayOfMonth.clone().startOf("day").locale("fa").add(i, "day")
+        );
+      } else {
+        days.push(firstDayOfMonth.clone().startOf("day").add(i, "day"));
+      }
     }
 
-    return days.map((item) => item.format(daysLabelFormat));
-  }, [firstDayOfMonth]);
+    const locale = config.system === "jalali" ? "fa" : "en_US";
+
+    return days.map((item) => item.locale(locale).format(daysLabelFormat));
+  }, [firstDayOfMonth, config.system]);
 
   if (!config?.options?.hasDaysLabel) return null;
 
-  if (viewType !== CalendarViewType.Days) return;
+  if (viewType !== CalendarViewType.Days) return null;
 
   return (
     <div className='grid grid-cols-7 pointer-events-none gap-x-0 w-full'>

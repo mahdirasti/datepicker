@@ -49,7 +49,7 @@ export default function Year({ date, meta }: Props) {
   const maxDate = config?.options?.maxDate ?? undefined;
 
   let yearClss =
-    "relative day text-sm hover:bg-lightSecondary !w-full !py-2 !h-auto !min-w-[initial] rounded-2xl";
+    "relative day text-sm !w-full !py-2 !h-auto !min-w-[initial] rounded-2xl";
 
   const dateInFormatted = date.clone().startOf("year").format(DATE_FORMAT);
 
@@ -73,7 +73,7 @@ export default function Year({ date, meta }: Props) {
   }
 
   if (isCurrentYear && !isJustBrowsing) {
-    yearClss += ` selected-year !bg-primary !rounded-md hover:bg-secondary !text-white z-[1] relative`;
+    yearClss += ` selected-year !rounded-md z-[1] relative`;
   }
 
   const selectDateHandler = (e: any) => {

@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function Years({ meta }: Props) {
-  const { viewDate, config } = useContext(CalendarContext);
+  const { config } = useContext(CalendarContext);
 
   const system = config?.system;
   const m = system === "gregorian" ? moment : momentJalali;

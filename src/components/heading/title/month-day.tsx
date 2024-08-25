@@ -13,8 +13,12 @@ export default function MonthDay() {
   let finalDate = viewDate;
 
   let dateFormat = "YYYY";
+  let locale = "en";
 
-  if (config.system === "jalali") dateFormat = "jYYYY";
+  if (config.system === "jalali") {
+    locale = "fa";
+    dateFormat = "jYYYY";
+  }
 
   if (index > 0) finalDate = finalDate?.clone()?.add(index, "month");
 
@@ -32,11 +36,11 @@ export default function MonthDay() {
 
   return (
     <button
-      className='!px-0 hover:!bg-transparent min-w-[initial] active:!bg-transparent !text-black/60'
+      className='!px-0 hover:!bg-transparent min-w-[initial] active:!bg-transparent'
       type='button'
       onClick={onClickYearTitle}
     >
-      {finalDate?.format(dateFormat)}
+      {finalDate?.locale(locale)?.format(dateFormat)}
     </button>
   );
 }

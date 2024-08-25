@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { CalendarContext, CalendarViewType } from "../../calendar";
 import { CalendarHolderContext } from "../../calendar-holder";
+import moment from "moment-jalaali";
+moment.loadPersian({
+  usePersianDigits: true,
+});
 
 export default function MonthTitle() {
   //Get calendar context
@@ -22,7 +26,6 @@ export default function MonthTitle() {
 
   if (config.system === "jalali") {
     dateFormat = "jMMMM";
-    finalDate = finalDate?.locale("fa");
   }
 
   if (index > 0) finalDate = finalDate?.clone()?.add(index, "month");
@@ -36,7 +39,7 @@ export default function MonthTitle() {
           if (selectedDate?.[0]) setViewDate(selectedDate?.[0]);
         }}
       >
-        {`<-`}
+        {config.undoMonthIcon ?? `<`}
       </button>
     );
 
@@ -52,13 +55,15 @@ export default function MonthTitle() {
     handleChangeViewType(CalendarViewType.Month);
   };
 
+  const locale = config.system === "jalali" ? "fa" : "en_US";
+
   return (
     <button
-      className='!px-0 hover:!bg-transparent active:!bg-transparent !text-black/60 !min-w-[initial]'
+      className='!px-0 hover:!bg-transparent active:!bg-transparent !min-w-[initial]'
       type='button'
       onClick={onClickMonthTitle}
     >
-      {finalDate?.format(dateFormat)}
+      {finalDate?.locale(locale)?.format(dateFormat)}
     </button>
   );
 }

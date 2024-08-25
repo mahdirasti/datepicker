@@ -5,7 +5,8 @@ import { CalendarHolderContext } from "../calendar-holder";
 
 export default function PrevMonth() {
   //Get calendar context
-  const { viewDate, setViewDate, viewType } = useContext(CalendarContext);
+  const { viewDate, setViewDate, viewType, config } =
+    useContext(CalendarContext);
   const handlePrevMonth = (e: any) => {
     e.stopPropagation();
     e.preventDefault();
@@ -20,8 +21,8 @@ export default function PrevMonth() {
   if (!hasPrevMonth) return null;
 
   return (
-    <button onClick={handlePrevMonth} className='prev-month text-primary'>
-      {`>`}
+    <button onClick={handlePrevMonth} className='prev-month'>
+      {config.prevMonthIcon ?? `←`}
     </button>
   );
 }

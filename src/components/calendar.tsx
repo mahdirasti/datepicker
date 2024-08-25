@@ -7,18 +7,23 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import momentMain from "moment";
 import jalaliMoment from "moment-jalaali";
 import CalendarHolder from "./calendar-holder";
+import moment from "moment";
 
-export type MomentDateType = any;
+export type MomentDateType = moment.Moment;
 
 export type CalendarConfig = {
   system?: "gregorian" | "jalali";
-  options: {
+  options?: {
     calendarWidth?: string | number;
     parentDaysClass?: string;
     dayClass?: string;
     hasDaysLabel?: boolean;
     showParentDayBg?: boolean;
     dayLabelClass?: string;
+    selectedDayLabelClass?: string;
+    holidayLabelClass?: string;
+    weekendLabelClass?: string;
+    dayInRangeClass?: string;
     daysLabelFormat?: string;
     isRange?: boolean;
     numberOfMonth?: number;
@@ -26,6 +31,9 @@ export type CalendarConfig = {
     maxDate?: MomentDateType;
     justBrowsing?: boolean;
   };
+  nextMonthIcon?: ReactNode;
+  prevMonthIcon?: ReactNode;
+  undoMonthIcon?: ReactNode;
 };
 
 const initConfig: CalendarConfig = {
@@ -44,6 +52,9 @@ const initConfig: CalendarConfig = {
     dayLabelClass: undefined,
     justBrowsing: false,
   },
+  nextMonthIcon: `→`,
+  prevMonthIcon: `←`,
+  undoMonthIcon: `↶`,
 };
 
 export enum CalendarViewType {
@@ -114,6 +125,7 @@ export default function Calendar({
   useEffect(() => {
     if (config !== undefined)
       setStateConfig({
+        ...config,
         system: config?.system ?? "gregorian",
         options: {
           ...initConfig?.options,
@@ -217,6 +229,8 @@ export default function Calendar({
   if (stateConfig.system === "jalali")
     finalViewDate = jalaliMoment(finalViewDate);
 
+  const direction = stateConfig.system === "gregorian" ? "ltr" : "rtl";
+
   return (
     <CalendarContext.Provider
       value={{
@@ -234,7 +248,7 @@ export default function Calendar({
         setViewDate: handleChangeViewDate,
       }}
     >
-      <div className='flex flex-row items-start gap-x-4'>
+      <div className='flex flex-row items-start gap-x-4' dir={direction}>
         {calendarAsArray.map((_, index) => (
           <CalendarHolder
             index={index}

@@ -5,6 +5,16 @@ import momentJalali from "moment-jalaali";
 import { CalendarConfig, CalendarContext } from "../calendar";
 import { CalendarHolderContext } from "../calendar-holder";
 
+function convertPersianToEnglishNumbers(input: string): string {
+  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+  return input.replace(/[۰-۹]/g, (match) => {
+    const index = persianNumbers.indexOf(match);
+    return englishNumbers[index];
+  });
+}
+
 function getDaysOfJalaliMonth(
   year: number,
   month: number
@@ -37,10 +47,15 @@ function getCurrentMonthDays(
 
       return daysArray;
     case "jalali":
-      const year = momentJalali(date).format("jYYYY");
-      const month = momentJalali(date).format("jMM");
+      const year = convertPersianToEnglishNumbers(
+        momentJalali(date).format("jYYYY")
+      );
+      const month = convertPersianToEnglishNumbers(
+        momentJalali(date).format("jMM")
+      );
 
       const daysArrayJalali = getDaysOfJalaliMonth(+year, +month);
+
       return daysArrayJalali;
   }
 }
