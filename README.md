@@ -13,10 +13,10 @@ Kimura Datepicker is a powerful and flexible datepicker library that supports bo
 
 # Installation
 
-using npm 
+npm:
 
     npm install kimura-datepicker
 
-using yarn
+yarn:
 
     yarn add kimura-datepicker
