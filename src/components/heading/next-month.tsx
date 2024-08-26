@@ -22,9 +22,13 @@ export default function NextMonth() {
 
   if (!hasNextMonth) return null;
 
+  let defaultNextIcon = `→`;
+
+  if (config.system === "jalali") defaultNextIcon = `←`;
+
   return (
     <button onClick={handleNextMonth} className='next-month'>
-      {config.nextMonthIcon ?? `→`}
+      {config.nextMonthIcon ?? defaultNextIcon}
     </button>
   );
 }

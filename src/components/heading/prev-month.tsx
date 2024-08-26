@@ -20,9 +20,13 @@ export default function PrevMonth() {
 
   if (!hasPrevMonth) return null;
 
+  let defaultPrevIcon = `←`;
+
+  if (config.system === "jalali") defaultPrevIcon = `→`;
+
   return (
     <button onClick={handlePrevMonth} className='prev-month'>
-      {config.prevMonthIcon ?? `←`}
+      {config.prevMonthIcon ?? defaultPrevIcon}
     </button>
   );
 }

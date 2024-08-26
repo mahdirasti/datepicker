@@ -26,8 +26,12 @@ export default function Year({ date, meta }: Props) {
 
   //get system
   const system = config?.system;
+  let locale = "en";
 
-  if (system === "jalali") DATE_FORMAT = `jYYYY`;
+  if (system === "jalali") {
+    DATE_FORMAT = `jYYYY`;
+    locale = "fa";
+  }
 
   //get today
   const today = system === "jalali" ? momentJalali() : moment();
@@ -91,7 +95,7 @@ export default function Year({ date, meta }: Props) {
     }
   };
 
-  let yearLabel = date?.locale("fa")?.format(DATE_FORMAT);
+  let yearLabel = date?.locale(locale)?.format(DATE_FORMAT);
 
   if (isCurrentYear) yearClss += ` bg-lightSecondary day-in-range`;
 

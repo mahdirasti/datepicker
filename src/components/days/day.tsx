@@ -150,7 +150,7 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
 
   if (isCurrentDay)
     dayClss += ` bg-primary day-in-range ${
-      config?.options?.dayInRangeClass ?? ""
+      config?.options?.dayInRangeClass ?? "bg-black/10"
     }`;
 
   let isShowParentBg = false;
@@ -180,7 +180,7 @@ export default function Day({ date, isLastInTable = false, meta }: Props) {
 
   if (isShowParentBg) {
     parentClss += ` bg-primary/20 day-in-range ${
-      config?.options?.dayInRangeClass ?? ""
+      config?.options?.dayInRangeClass ?? "bg-black/10"
     }`;
     if (selectedDates[0] === dateInFormatted && isShowParentDayBg) {
       switch (config.system) {

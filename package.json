@@ -1,6 +1,6 @@
 {
     "name": "kimura-datepicker",
-    "version": "1.0.20",
+    "version": "1.0.25",
     "description": "A custom datepicker component for React",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
